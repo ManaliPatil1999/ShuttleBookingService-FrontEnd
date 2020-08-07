@@ -1,0 +1,108 @@
+<div class="container " style="height: 10px; width: auto;">
+    <div class="row-10" >
+        <div class="col-12">
+            <div style="scrollbar-highlight-color: grey; height: 20px;" >
+                <p style="text-align: center;">Kirloskar Brothers Limited</p>
+                <h2 class="display" style="text-align: center; background-color:lightgrey; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> SHUTTLE BOOKING AVAILABILITY</h2>
+               
+            </div> 
+            <div class="input-group" >
+                <div class="input-group append" style="float: left; margin-left: 388px; line-height: 25px;margin-top: 90px;">
+                    <label class="input-group-text" >DATE  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;</label>
+               
+                    <input type="date"  id="deptdate" value= "deptdate"
+                    [(ngModel)]="Shuttledetails.deptdate" 
+                    [value]="deptdate" >
+                 </div>        
+                   
+              
+                <div [class.has.error]="tourtype.touched && tourtype.invalid" >
+                    <div class="input-group append" 
+                    style="text-align: center;float: left; margin-left: 388px; line-height: 35px;
+                    margin-top: 20px;">
+                        <label for="tourtype" class="input-group-text">SELECT TOUR </label>
+                   
+                        <select class="input-type"
+                        id="tourtype" name="tourtype"  style="width: 30%;"
+                        [(ngModel)]="Shuttledetails.tourtype" required #tourtype="ngModel" >
+                            <option [ngValue]="null" *ngFor="let tour of tours" 
+                            [value]="tour.type">
+                                {{tour.type}}
+                            </option>
+    
+                        </select> 
+                        <span class="help-block" *ngIf="tourtype.touched && tourtype.invalid" 
+                        style="margin-top:5px ;color: red;"> 
+                            &nbsp;&nbsp; *required</span>
+                    </div>  
+                    
+                </div>  
+                <div [class.has.error]="depttime.touched && depttime.invalid">
+                    <div class="input-group append" 
+                         style="float: left; margin-left: 388px; line-height: 25px; margin-top: 20px;">
+                         <label for="depttime" class="input-group-text"> 
+                            TOUR TIMING &nbsp;</label>
+                        <select class="input-type" style="width: 40%;" id="depttime" name="depttime"
+                         [(ngModel)]="Shuttledetails.depttime" required #depttime="ngModel" >
+                            <option [ngValue]="null" *ngFor="let dtime of depttimes" 
+                            [value]="dtime.time">
+                                {{dtime.time}}
+                            </option>
+                        </select>
+                        <span class="help-block" *ngIf="depttime.touched && depttime.invalid" 
+                        style="margin-top:5px ;color: red;"> 
+                            &nbsp;&nbsp; *required</span> 
+                    </div>
+                </div>   
+            </div>
+            <div>
+               
+                <p style="margin-top : 10px;text-align: center; color: red;font-style: oblique;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;  font: bold ; line-height: 10px;">Driver No : Evening --MH 12 KQ 234, Driver Details Vijay Chavan - 9765057227 & Rahul - 9823217925</p>
+            </div>
+            <hr>
+            <div>
+                <button class="btn btn-success" type="submit" 
+                style="color:black; background-color: white; 
+                text-align:center;text-shadow: black; font-size: 16px;
+                align-self: center; margin-left: 50%;"
+                (click)="getByDateTypeAndTime()"
+               >
+                DISPLAY</button>
+            </div>
+            <hr>
+            <div class="panel-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>SRo</th>
+                      <th>RefNo</th>
+                      <th>Ticket No</th>
+                      <th>Name</th>
+                      <th>Mobile</th>
+                      <th>Emergency</th>
+                      <th>Boarding</th>
+                      <th>Booking Type</th>
+                      <th>Remark</th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let Shuttledetails of booking; let i=index">
+                        <td>{{i + 1}}</td>
+                        <td>{{Shuttledetails.booking_id}}</td>
+                        <td>{{Shuttledetails.emp_id}}</td>
+                        <td>{{Shuttledetails.emp_name}}</td>
+                        <td>{{Shuttledetails.mobile}}</td>
+                        <td>{{Shuttledetails.emergencyNo}}</td>
+                        <td>{{Shuttledetails.boarding_place}}</td>
+                        <td>{{Shuttledetails.bookingtype}}</td>
+                        <td>{{Shuttledetails.remark}}</td>
+                       
+                    </tr>
+                  </tbody>
+               
+                </table> 
+            </div>    
+        </div>        
+    </div>   
+</div>  

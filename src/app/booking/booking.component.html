@@ -1,0 +1,397 @@
+
+<div [hidden]="submitted" >
+    <form #bookingform="ngForm" (ngSubmit)="bookingNow()">
+        <div class="container " style="height: 10px; width: auto;" >
+            <div class="row-5" >
+                <div class="col-12">
+                    <div  style="scrollbar-highlight-color: grey; height: 20px;" >
+                        <p style="text-align: center;">Kirloskar Brothers Limited</p>
+                        <h2 class="display" class="display" style="text-align: center; background-color:lightgrey; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"> SHUTTLE BOOKING </h2>
+                       
+                    </div> 
+                   
+                    <div>
+                       
+                        <p style="margin-top : 100px;text-align: center; color: red;font-style: oblique;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;  font: bold ; line-height: 10px;">Note : Single person booking for Single Request. Official booking will be given priority</p>
+                        <p style="text-align: center;color: red; font-style: oblique; font: bold ;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font: bold; line-height: 10px;">Important!!!!!! All shuttle timings have been changed.</p>
+                    </div>
+                    <hr>
+                    <div> 
+                        <p style=" float: left; margin-left: 350px; line-height: 15px;">Pune to KOV</p>
+                        <p style=" float: right ; margin-right: 300px; line-height: 15px;">KOV to Pune</p>
+                        
+                    </div>
+                    <div> 
+                        <p style="float: left; margin-left: 320px; line-height: 10px;">Morning : 6:15 AM</p>
+                        <p style=" float: right ; margin-right: 279px; line-height: 10px;">Morning : 6:15 AM</p>
+                        
+                    </div>
+                    <div> 
+                        <p style="float: left; margin-left: 320px; line-height: 10px;">Evening : From Udyog Bhavan 4:30 PM</p>
+                        <p style=" float: right ; margin-right: 285px; line-height: 10px;">Evening : 5:40 PM</p>
+                        
+                    </div>
+                    <div> 
+                        <p style="float: left; margin-left: 388px; line-height: 10px;">From Yamuna 5:40 PM</p>
+                       
+                    </div>
+                     
+                    <div class="input-group">
+                        <td style="float: left; margin-top: 20px; line-height: 10px; margin-left: 500px;">
+                            <label >&nbsp;
+                                <input type="radio" id="radio1" name="journey" value="One-Way "
+                                [(ngModel)]="Shuttledetails.journey" 
+                                (change)="onTripChange('single')" >
+                                One-Way &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            </label>
+                            <label for="radio2">&nbsp; 
+                                <input type="radio" id= "radio2" name="journey" value="Round-Trip"
+                                (click)="Enabled()"
+                                [(ngModel)]="Shuttledetails.journey" 
+                                (change)="onTripChange('round')">
+                                Round-Trip </label>  
+                            <br>
+                        
+                        </td>
+                    </div> 
+                   
+                    <div [class.has.error]="tourtype.touched && tourtype.invalid" >
+                        <div class="input-group append" style="float: left; margin-left: 388px; 
+                        line-height: 25px; width: 40%;">
+                            <label for="tourtype" class="input-group-text">Select Tour </label>
+                       
+                            <select class="form-control"
+                            id="tourtype" name="tourtype"  
+                            [(ngModel)]="Shuttledetails.tourtype" required #tourtype="ngModel" >
+                                <option [ngValue]="null" *ngFor="let tour of tours" 
+                                [value]="tour.type">
+                                    {{tour.type}}
+                                </option>
+        
+                            </select> 
+                            <span class="help-block" *ngIf="tourtype.touched && tourtype.invalid" 
+                            style="margin-top:5px ;color: red;"> 
+                                &nbsp;&nbsp; *required</span>
+                        </div>  
+                        
+                    </div>
+                    <div style="margin-top: 50px;"></div>
+                    <hr>
+                    <table style="width: 100%;margin-top: 20px;">
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="input-type">
+                            <td [class.has.error]="boarding_place.touched && boarding_place.invalid">
+                                <label for="boardingplace" class="control-label"> Boarding Place : &nbsp;&nbsp;</label>
+                                <select id="boarding_place" name="boarding_place"
+                                 class="input-type" style="width: 50%;"
+                                 [(ngModel)]="Shuttledetails.boarding_place" required #boarding_place="ngModel" >
+                                    <option [ngValue]="null" *ngFor="let place of boarding" 
+                                    [value]="place.bplace">
+                                        {{place.bplace}}
+                                    </option>
+                                </select> 
+                                <span class="help-block" *ngIf="boarding_place.touched && boarding_place.invalid" style="margin-top:5px ;color: red;"> 
+                                    &nbsp;&nbsp; *required</span>
+                            </td>   
+                            <td [class.has.error]="return_boarding.touched && return_boarding.invalid" >
+                                <label for="return_boarding" class="control-label"> Boarding Place : &nbsp;&nbsp;</label>
+                                <select id="return_boarding" name="return_boarding"
+                                 class="input-type" style="width: 50%;" [disabled]="!isRoundTrip"
+                                 [(ngModel)]="Shuttledetails.return_boarding" required #return_boarding="ngModel" >
+                                    <option [ngValue]="null" *ngFor="let place of retboarding" 
+                                    [value]="place.b1place">
+                                        {{place.b1place}}
+                                    </option>
+                                </select> 
+                                <span class="help-block" *ngIf="return_boarding.touched && return_boarding.invalid" style="margin-top:5px ;color: red;"> 
+                                    &nbsp;&nbsp; *required</span>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="input-type">
+                            <td [class.has.error]="depttime.touched && depttime.invalid">
+                                <label for="depttime" class="control-label"> 
+                                    Departure Time : &nbsp;</label>
+                                <select class="input-type" style="width: 50%;" id="depttime" name="depttime"
+                                 [(ngModel)]="Shuttledetails.depttime" required #depttime="ngModel" 
+                                 >
+                                    <option [ngValue]="null" *ngFor="let dtime of depttimes" 
+                                    [value]="dtime.times">
+                                        {{dtime.times}}
+                                    </option>
+                                </select>
+                                <span class="help-block" *ngIf="depttime.touched && depttime.invalid" 
+                                style="margin-top:5px ;color: red;"> 
+                                    &nbsp;&nbsp; *required</span> 
+                            </td>   
+                            <td [class.has.error]="rettime.touched && rettime.invalid">
+                                <label for="returntime" class="control-label"> Return Time :
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   </label>
+                                <select id="returntime"name="rettime" [(ngModel)]="Shuttledetails.rettime"
+                                class="input-type" style="width: 50%;" required  #rettime="ngModel"
+                                [disabled]="!isRoundTrip">
+                                    <option [ngValue]="null" *ngFor="let rtime of returntime" 
+                                        [value]="rtime.times">
+                                        {{rtime.times}}
+                                    </option>
+                                </select> 
+                                <span class="help-block" *ngIf="rettime.touched && rettime.invalid " 
+                                style="margin-top:5px ;color: red;"> 
+                                    &nbsp;&nbsp; *required</span>
+                            </td>                                      
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="input-type">
+                            <td><label > Departure Date : &nbsp;</label>
+                                <input type="date" style="width: 30%;" name="deptdate"
+                                [(ngModel)]="Shuttledetails.deptdate">
+                                
+                            </td>
+                            <td><label> Return Date : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input type="date" style="width: 30%;" name="rettdate" 
+                                [(ngModel)]="Shuttledetails.retdate" [disabled]="!isRoundTrip"
+                               >
+                            </td>
+                           
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="booktype">
+                            <td><label for="type"> Booking Type : </label>
+                               
+                            </td>
+                            <td>
+                                <label >&nbsp;
+
+                                   <input type="radio"  name="bookingtype" value="Official "
+                                   [(ngModel)]="Shuttledetails.bookingtype" >
+                                   Official &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>   
+                                   <input type="radio"  name="bookingtype" value="Personal" 
+                                   [(ngModel)]="Shuttledetails.bookingtype"   >
+                                <label >&nbsp;Personal </label>    
+                            </td>
+                           
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="input-type">
+                            <td>
+                                <input type="radio"  name="booking_for" value="Self "  
+                                [(ngModel)]="Shuttledetails.booking_for">
+                                <label >&nbsp;Self &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>   
+                                <input type="radio" name="booking_for" value="Guest " 
+                                 [(ngModel)]="Shuttledetails.booking_for" >
+                                <label >&nbsp;Guest </label>    
+                            </td>
+                            <td [class.has.error]="company.touched && company.invalid">
+                                <label for="company" class="control-label"> Company : 
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   </label>
+                                <select id="company" name="company" [(ngModel)]="Shuttledetails.company" 
+                                   class="input-type" required #company="ngModel" style="width: 30%;" >
+                                   
+                                    <option [ngValue]="null" *ngFor="let compu of companies" [value]="compu.comp">
+                                        {{compu.comp}}
+                                    </option>        
+                                </select> 
+                                <span class="help-block" *ngIf="company.touched && company.invalid" 
+                                style="margin-top:5px ;color: red;"> 
+                                    &nbsp;&nbsp;*required</span>
+                            </td>  
+                        </tr>
+                    </table>    
+                    <hr>
+                    <p style="text-align: center; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">PERSONAL DETAILS</p>
+                    <hr>
+                    <table style="width: 100%;">
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group" >
+                            <td  >
+                                <label for="emp_id" class="control-label"
+                                >
+                                    <span >*</span> Ticket No : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </label>
+                                                          
+                            </td>   
+                            <td class="form-group" [class.has-error]="IdControl.invalid && IdControl.touched">
+                                <p>
+                                <input required type="text" [(ngModel)]="Shuttledetails.emp_id" name="emp_id" 
+                                style="width: 40%;line-height: 10px;" id="emp_id" class="form-control" 
+                                placeholder="Enter your Employee-ID" required #IdControl="ngModel" />
+                                <span class="help-block" *ngIf="IdControl.touched && IdControl.invalid" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Id id required</span>
+                               </p>
+                               
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label for="emp_name" class="control-label"><span class="required">*</span>  Booking for Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td class="form-group" [class.has-error]="NameControl.invalid && NameControl.touched">
+                                <p>
+                                <input required type="text" [(ngModel)]="Shuttledetails.emp_name"
+                                 name="emp_name" 
+                                 style="width: 70%;line-height: 10px;" id="emp_name" 
+                                 class="form-control" 
+                                 placeholder="Enter the name of traveller" 
+                                  required #NameControl="ngModel" />
+                                 <span class="help-block" *ngIf="NameControl.touched && NameControl.invalid" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Name is required</span>
+                               </p>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label required for="emp_sector" class="control-label"><span class="required">*</span> 
+                                Department  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td class="form-group" [class.has-error]="DeptControl.invalid && DeptControl.touched">
+                                <p>
+                                <input required type="text" [(ngModel)]="Shuttledetails.emp_sector" name="emp_sector" 
+                                style="width: 70%;line-height: 10px;" id="emp_sector" class="form-control" 
+                                placeholder="Enter Department"  required #DeptControl="ngModel"/>
+                                <span class="help-block" *ngIf="DeptControl.touched && DeptControl.invalid" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Department is required</span>
+                               </p>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label for="emailId" class="control-label"><span class="required">*</span> 
+                                Email-Id  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td class="form-group" [class.has-error]="EmailControl.invalid && EmailControl.touched">
+                                <p>
+                                <input required type="text" style="width: 70%;line-height: 10px;" 
+                                id="emailId" name="emailId" [(ngModel)]="Shuttledetails.emailId" 
+                                class="form-control" placeholder="Enter Email-Id"  
+                                required #EmailControl="ngModel" 
+                                pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/>
+                                <span class="help-block" *ngIf="EmailControl.touched && EmailControl.errors?.required" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Email is required
+                                </span>
+                               
+                                <span class="help-block" *ngIf="EmailControl.touched && EmailControl.errors?.pattern" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Email-Id is invalid
+                                </span>
+                               </p>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label for="mobile" class="control-label"><span class="required">*</span> Mobile No  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td class="form-group" [class.has-error]="MobileControl.invalid && MobileControl.touched">
+                                <p>
+                                    <input required type="text" style="width: 40%; line-height: 10px;" 
+                                    id="mobile" name="mobile" [(ngModel)]="Shuttledetails.mobile" 
+                                    class="form-control" placeholder="Enter Mobile No" minlength="10" maxlength="10"
+                                    #MobileControl="ngModel"  />
+                                    <span class="help-block" *ngIf="MobileControl.touched && MobileControl.invalid" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Mobile-No is required</span>
+                                </p>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label for="emergency_contactno" class="control-label"><span class="required">*</span>
+                                 Emergency Contact No  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td class="form-group" [class.has-error]="EmergencyControl.invalid && EmergencyControl.touched">
+                                <p>
+                                    <input required type="text" style="width: 40%; line-height: 10px;" 
+                                    id="emergencyNo" name="emergencyNo" [(ngModel)]="Shuttledetails.emergencyNo" 
+                                    class="form-control" placeholder="Enter Emergency-No"
+                                     minlength="10" maxlength="10" 
+                                     #EmergencyControl="ngModel"/>
+                                    <span class="help-block" *ngIf="EmergencyControl.touched && EmergencyControl.invalid" 
+                                  style="margin-top:5px ;color: red;"> 
+                                  &nbsp;&nbsp;*Emergency-No is required</span>
+                                </p>
+                            </td>                                          
+                        </tr>
+                        <tr class="space" ><th></th><th></th></tr>
+                        <tr class="form-group">
+                            <td><label for="booking_id"> Remark  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            </td>   
+                            <td>
+                                <p>
+                                <input type="text" style="width: 40%;line-height: 10px;" 
+                                id="text" name="remark" [(ngModel)]="Shuttledetails.remark"
+                                class="form-control" placeholder="Enter Remark if any" />
+                             
+                               </p>
+                            </td>                                          
+                        </tr>
+                    </table>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button class="btn btn-success" 
+                            type="submit" name="Submit" 
+                            value="book" style="color:black; 
+                            background-color: white; text-align:center;
+                            text-shadow: black; font-size: 16px; align-self: 
+                            center;margin-left: 500px;" 
+                           
+                            [disabled]="bookingform.invalid">
+                            SUBMIT</button>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                </div>
+                
+            </div>        
+        </div>  
+    </form>
+</div>
+<div [hidden]="!submitted">
+     <h3 style="text-align: center; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+        Welcome {{Shuttledetails.emp_name}}</h3>
+<h4 style="text-align: center; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+     Summary of your Booking </h4>
+    <p>&nbsp;&nbsp;</p>
+    <p style="margin-left: 530px;">Employee Id :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{Shuttledetails.emp_id}}</p>
+    <p style="margin-left: 550px;">Tour Type :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; {{Shuttledetails.tourtype}}</p>
+    <p style="margin-left: 410px;">Deptarture Date : &nbsp;&nbsp;{{Shuttledetails.deptdate}}
+        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Departure Time :&nbsp;&nbsp;&nbsp; {{Shuttledetails.depttime}} 
+        from {{Shuttledetails.boarding_place}}</p>
+    <p style="margin-left: 410px;" *ngIf="!flag">Return Date : &nbsp;&nbsp;{{Shuttledetails.retdate}}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     Return Time :&nbsp;&nbsp;&nbsp; {{Shuttledetails.rettime}} 
+        from {{Shuttledetails.return_boarding}}</p>    
+
+        <div class="form-group">
+            <div class="col-xs-12">
+                <button class="btn btn-success" 
+                type="submit" name="confirm" 
+                value="book" style="color:black; 
+                background-color: white; text-align:center;
+                text-shadow: black; font-size: 16px; align-self: 
+                center;margin-left: 600px;" 
+                (click)="confirm()">
+                CONFIRM</button>
+            </div>
+        </div>        
+</div>
+<div [hidden]="!CONFIRM">
+   <hr>
+   <h3 style="text-align: center; margin-top: 20px;">BOOKING CONFIRMED. THANK YOU!! </h3>
+   <h5 style="text-align: center;">HAVE A NICE DAY...</h5>
+   <hr>
+</div>
+    
+
+

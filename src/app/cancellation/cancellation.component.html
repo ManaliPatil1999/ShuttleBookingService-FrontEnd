@@ -1,0 +1,75 @@
+<div class="container " style="height: 10px; width: auto;">
+    <div class="row-10" >
+        <div class="col-12">
+            <div style="scrollbar-highlight-color: grey; height: 20px;" >
+                <p style="text-align: center;">Kirloskar Brothers Limited</p>
+                <h2 class="display" style="text-align: center; background-color:lightgrey; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> SHUTTLE CANCELLATION </h2>
+               
+            </div> 
+            <div class="input-group" >
+                <div class="input-group append" style="float: left; margin-left: 390px; 
+                line-height: 25px;margin-top: 90px;">
+                    <label class="input-group-text" for="deptdate">DATE   &nbsp;&nbsp;</label>
+                    <input type="date"  id="deptdate" [value]="deptdate "
+                    [(ngModel)]="Shuttledetails.deptdate"
+                    >
+                 </div> 
+            </div>       
+                  
+            <hr>
+            <div>
+                <button class="btn btn-success" 
+                type="submit" style="color:black; background-color: white; 
+                text-align:center;text-shadow: black; font-size: 16px;
+                align-self: center; margin-left: 45%;"
+                (click)="getByDate()">
+                DISPLAY</button>
+            </div>
+            <hr>
+            <div class="panel-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                        <th>SR No</th>
+                        <th>Booking ID</th>
+                        <th>Booking Name</th>
+                        <th>Tour Type</th>
+                        <th>Tour Time</th>
+                        <th>Booking For</th>
+                        <th>Booking Type</th>
+                        <th>Remark</th>
+                        <th>Cancel</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let Shuttledetails of booking; let i= index">
+                          <td>{{i + 1}}</td>                          
+                          <td>{{Shuttledetails.booking_id}}</td>
+                          <td>{{Shuttledetails.emp_name}}</td>
+                          <td>{{Shuttledetails.tourtype}}</td>
+                          <td>{{Shuttledetails.depttime}}</td>
+                          <td>{{Shuttledetails.booking_for}}</td>
+                          <td>{{Shuttledetails.bookingtype}}</td>
+                          <td>{{Shuttledetails.remark}}</td>
+                          <td class="text-center">
+                              <button class="btn btn-danger btn-xs"
+                                 (click)="deleteBooking(Shuttledetails.booking_id)">
+                                  <span class="glyphicon glyphicon-remove">
+                                    Cancel
+                                  </span>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+                </table> 
+            </div>    
+           
+        </div>        
+    </div>   
+</div> 
+<!--
+<div [hidden]="!display">
+    <p>Deptdate: {{Shuttledetails.deptdate}}</p>
+
+</div>
+--> 

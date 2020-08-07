@@ -1,0 +1,13 @@
+.shuttle-image{
+    background: url("https://indiantravelhouse.com/wp-content/uploads/2017/01/mini-bus-1.jpg") 
+    no-repeat left top; 
+    width: 600px; 
+    height: 600px;
+    float :right;
+    background-size: 600px;
+    border: 20px;
+    
+}
+.display{
+    background-image: linear-gradient(to bottom ,  rgb(98, 104, 105) , rgb(243, 247, 247));
+}

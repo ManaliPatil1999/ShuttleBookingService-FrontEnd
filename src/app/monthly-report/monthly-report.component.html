@@ -1,0 +1,157 @@
+<div class="container " style="height: 10px; width: auto;">
+    <div class="row-5">
+        <div class="col-12">
+            <div style="scrollbar-highlight-color: grey; height: 20px;">
+                <p style="text-align: center;">Kirloskar Brothers Limited</p>
+                <h2 class="display"
+                    style="text-align: center; background-color:lightgrey;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                    SHUTTLE BOOKING REPORT </h2>
+
+            </div>
+            <table style="width: 100%;">
+                <tr class="space">
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="date">
+                    <td><label for="from_date" style="margin-top: 100px;margin-left: 100px;">
+                            From Date : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="date" style="width: 30%;" id="from_date" [(ngModel)]="Shuttledetails.startdate"
+                            [value]="startdate">
+                    </td>
+                    <td><label for="to_date" style="margin-top: 100px; margin-left: 100px;">
+                            To Date : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <input type="date" style="width: 30%;" id="to_date" [(ngModel)]="Shuttledetails.enddate"
+                            [value]="enddate">
+                    </td>
+
+                </tr>
+                <tr class="space">
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="input-group-type">
+                    <td>
+                        <label style=" margin-left: 100px;"> Booking Type :
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+
+                        <input type="radio" name="bookingtype" value="Official "
+                            [(ngModel)]="Shuttledetails.bookingtype">
+                        <label>&nbsp;
+                            Official&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp; </label>
+                        <input type="radio" name="bookingtype" value="Personal"
+                            [(ngModel)]="Shuttledetails.bookingtype">
+                        <label>&nbsp;Personal </label>
+                    </td>
+                    <td [class.has.error]="tourtype.touched && tourtype.invalid">
+                        <label for="tourtype" class="control-label" style=" margin-left: 100px;">Tour-Type :
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <select class="input-type" style="width: 30%;" id="tourtype" name="tourtype"
+                            [(ngModel)]="Shuttledetails.tourtype" required #tourtype="ngModel">
+                            <option [ngValue]="null" *ngFor="let tour of tours" [value]="tour.type">
+                                {{tour.type}}
+                            </option>
+
+                        </select>
+                        <span class="help-block" *ngIf="tourtype.touched && tourtype.invalid"
+                            style="margin-top:5px ;color: red;">
+                            &nbsp;&nbsp; *required</span>
+                    </td>
+                </tr>
+                <tr class="space">
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="input-type">
+                    <td [class.has.error]="company.touched && company.invalid">
+                        <label for="company" class="control-label" style=" margin-left: 100px;">
+                            Company : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp; </label>
+                        <select id="company" name="company" [(ngModel)]="Shuttledetails.company" class="input-type"
+                            required #company="ngModel" style="width: 30%;">
+
+                            <option [ngValue]="null" *ngFor="let compu of companies" [value]="compu.comp">
+                                {{compu.comp}}
+                            </option>
+                        </select>
+                        <span class="help-block" *ngIf="company.touched && company.invalid"
+                            style="margin-top:5px ;color: red;">
+                            &nbsp;&nbsp;*required</span>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <button class="btn btn-success" type="submit" value="one" style="color:black; background-color: white; text-align:center;
+             text-shadow: black; font-size: 16px; align-self: center;margin-left: 350px;" (click)="getByDeptDates()">
+                ONE-WAY</button>
+            <button class="btn btn-success" type="submit" value="return" style="color:black; background-color: white; text-align:center;
+             text-shadow: black; font-size: 16px; align-self: center;margin-left: 200px;" (click)="getByRetDates()">
+                RETURN </button>
+            <hr>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>SRo</th>
+                            <th>Ticket No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Company</th>
+                            <th>Tour Type</th>
+                            <th>Timing</th>
+                            <th>Date Of Journey</th>
+                            <th>Emergency</th>
+                            <th>Booking Type</th>
+                            <th>Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Shuttledetails of booking; let i=index">
+
+                            <td>{{i + 1}}</td>
+                            <td>{{Shuttledetails.emp_id}}</td>
+                            <td>{{Shuttledetails.emp_name}}</td>
+                            <td>{{Shuttledetails.emailId}}</td>
+                            <td>{{Shuttledetails.emp_sector}}</td>
+                            <td>{{Shuttledetails.company}}</td>
+                            <td>{{Shuttledetails.tourtype}}</td>
+                            <td>{{Shuttledetails.depttime}}</td>
+                            <td>{{Shuttledetails.deptdate}}</td>
+                            <td>{{Shuttledetails.emergencyNo}}</td>
+                            <td>{{Shuttledetails.bookingtype}}</td>
+                            <td>{{Shuttledetails.remark}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr *ngFor="let Shuttledetails of returntrip; let i=index">
+
+                            <td>{{i + 1}}</td>
+                            <td>{{Shuttledetails.emp_id}}</td>
+                            <td>{{Shuttledetails.emp_name}}</td>
+                            <td>{{Shuttledetails.emailId}}</td>
+                            <td>{{Shuttledetails.emp_sector}}</td>
+                            <td>{{Shuttledetails.company}}</td>
+                            <td>{{Shuttledetails.tourtype}}</td>
+                            <td>{{Shuttledetails.rettime}}</td>
+                            <td>{{Shuttledetails.retdate}}</td>
+                            <td>{{Shuttledetails.emergencyNo}}</td>
+                            <td>{{Shuttledetails.bookingtype}}</td>
+                            <td>{{Shuttledetails.remark}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<div [hidden]="!display">
+    <p>Tour-Type: {{Shuttledetails.tourtype}} :</p>
+    <p>Company: {{Shuttledetails.company}}</p>
+    <p>Booking type: {{Shuttledetails.booking_type}}</p>
+</div>    
+-->

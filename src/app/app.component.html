@@ -1,0 +1,50 @@
+<div>
+  <header>
+    <!-- Navbar -->
+      <nav class="navbar navbar-expand-sm navbar-dark" style=" width: 100%; ">
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+        <a *ngIf="!loginService.isUserLoggedIn() " routerLink="/login" class="nav-link" routerLinkActive="active" style="color:black">Login</a>          </li>
+          <li class="nav-item">
+            <a *ngIf="loginService.isUserLoggedIn() "routerLink="/home-page" class="nav-link" routerLinkActive="active" style="margin-left: 1050px; color: black;">Home &nbsp;&nbsp;&nbsp;</a>
+          </li>       
+          <li class="nav-item">
+            <a *ngIf="loginService.isUserLoggedIn() "routerLink="/logout" class="nav-link" routerLinkActive="active" style="color: black;">Logout</a>
+          </li>
+        </ul>
+      </nav>
+      <router-outlet></router-outlet>
+   
+
+  </header>
+  <!-- Main navigation -->
+</div>
+
+
+
+<!--
+
+
+<h1 style="text-align: center; font-family:Georgia, 'Times New Roman', Times, serif;">WELCOME TO SHUTTLE BOOKING SYSTEM</h1>
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: black">
+    
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a *ngIf="!loginService.isUserLoggedIn() " routerLink="/login" class="nav-link" routerLinkActive="active">Login</a>
+    
+    </li>
+    <li class="nav-item">
+      <a *ngIf="loginService.isUserLoggedIn() "routerLink="/home-page" class="nav-link" routerLinkActive="active" style="margin-left: 1050px;">Home</a>
+    </li>
+ 
+    <li class="nav-item">
+      <a *ngIf="loginService.isUserLoggedIn() "routerLink="/logout" class="nav-link" routerLinkActive="active">Logout</a>
+    </li>
+ 
+  
+  
+  </ul>
+</nav>
+<router-outlet></router-outlet>
+-->
